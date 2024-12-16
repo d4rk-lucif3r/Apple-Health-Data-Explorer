@@ -1,72 +1,145 @@
-# Apple Health Data Explorer 🍎
+# 🍎 Apple Health Data Explorer
 
-An interactive Streamlit application to visualize and analyze your Apple Health data. This app provides insights into your:
-- Heart rate patterns and variability
-- Daily activity metrics (steps, distance)
-- Workout statistics and trends
-- Sleep patterns and duration
+A powerful and intuitive dashboard for visualizing and analyzing your Apple Health data with advanced insights and correlations.
 
-## Features
+## ✨ Features
 
-- **On-demand Data Loading**: Each health metric is loaded separately for optimal performance
-- **Interactive Visualizations**: Explore your health data through interactive charts and graphs
-- **Flexible Date Filtering**: Analyze data for different time periods
-- **Key Health Metrics**: View important statistics and trends for each health category
+### 📊 Interactive Visualizations
+- **Heart Rate Analysis**: Track patterns, variations, and recovery metrics
+- **Activity Monitoring**: Steps, distance, and energy expenditure
+- **Workout Analysis**: Duration, intensity, and type distribution
+- **Sleep Patterns**: Duration, quality, and consistency tracking
 
-## Setup
+### 🔍 Advanced Insights
+- Heart rate patterns by time of day
+- Sleep quality and debt analysis
+- Workout effectiveness and progress tracking
+- Activity consistency and patterns
+- Cross-metric correlations and trends
 
-1. Export your Apple Health data from your iPhone:
-   - Open the Health app
-   - Tap your profile picture
-   - Select "Export All Health Data"
-   - Save the exported zip file
-   - Extract the zip file
+### 🎛️ Flexible Date Filtering
+- Quick presets (7 days, 30 days, 90 days, 1 year)
+- Custom date range selection
+- Historical data up to 5 years
 
-2. Install the required Python packages:
+### 📥 Data Export
+- Download filtered data as CSV
+- Available for all metrics and time ranges
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Python 3.9 or higher
+- Apple Health data export (export.xml from Apple Health app)
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/apple_health_explorer.git
+cd apple_health_explorer
+```
+
+2. Install required packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Place your exported Apple Health data in the `apple_health_export` directory:
-   - Copy `export.xml` to the `apple_health_export` directory
-   - Copy the `electrocardiograms` folder (if any)
-   - Copy the `workout-routes` folder (if any)
+3. Export your Apple Health data:
+   - Open the Health app on your iPhone
+   - Tap your profile picture
+   - Tap "Export All Health Data"
+   - Extract the zip file
+   - Place the `export.xml` file in the `apple_health_export` directory
 
-4. Run the application:
+### Usage
+
+Run the application using the main script:
 ```bash
-streamlit run app.py
+python main.py
 ```
 
-## Usage
+This will:
+1. Preprocess your health data
+2. Launch the interactive dashboard
+3. Open your default browser automatically
 
-1. Select a tab for the health metric you want to analyze:
-   - ❤️ Heart: Heart rate patterns and variability
-   - 🏃‍♂️ Activity: Steps and distance
-   - 🏋️‍♂️ Workouts: Exercise sessions and calories
-   - 😴 Sleep: Sleep patterns and duration
+## 📁 Project Structure
 
-2. Use the sidebar to select your desired date range:
-   - Quick selections available (7 days, 30 days, etc.)
-   - Custom date range option
+```
+apple_health_explorer/
+├── app.py              # Main Streamlit application
+├── main.py            # Entry point script
+├── data_loader.py     # Data loading utilities
+├── insights.py        # Advanced health analytics
+├── utils.py           # Common utility functions
+├── requirements.txt   # Project dependencies
+├── processed_data/    # Preprocessed CSV files
+└── apple_health_export/
+    └── export.xml     # Your health data export
+```
 
-3. Click the "Load Data" button in each tab to view the visualizations
+## 📊 Available Metrics
 
-## Data Privacy
+### Heart Health
+- Heart rate over time
+- Resting heart rate
+- Heart rate variability
+- Recovery patterns
+- Time-of-day analysis
 
-This application processes your health data locally on your computer. No data is sent to external servers or stored online.
+### Activity
+- Daily steps
+- Distance covered
+- Active energy burned
+- Activity patterns
+- Consistency scores
 
-## Requirements
+### Workouts
+- Duration and frequency
+- Calorie expenditure
+- Workout type distribution
+- Intensity analysis
+- Progress tracking
 
-- Python 3.9+
-- Streamlit
-- Pandas
-- Plotly
-- Other dependencies listed in `requirements.txt`
+### Sleep
+- Sleep duration
+- Sleep quality score
+- Sleep debt tracking
+- Consistency analysis
+- Sleep timing patterns
 
-## Contributing
+### Insights & Correlations
+- Steps vs Heart Rate
+- Sleep vs Recovery
+- Activity vs Sleep Quality
+- Workout Impact Analysis
+- Long-term Trends
 
-Feel free to submit issues and enhancement requests!
+## 🛠️ Customization
 
-## License
+### Date Ranges
+- Use quick select for common ranges
+- Custom date picker for specific periods
+- Filter any metric by date range
 
-MIT License - feel free to use this project however you'd like.
+### Data Export
+Each visualization includes a download button for the filtered data in CSV format.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- Built with Streamlit
+- Powered by Pandas and Plotly
+- Inspired by the Apple Health app
+
+## 📬 Support
+
+If you encounter any issues or have questions, please open an issue on GitHub.

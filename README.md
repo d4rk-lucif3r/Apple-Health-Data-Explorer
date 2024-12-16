@@ -1,145 +1,140 @@
 # 🍎 Apple Health Data Explorer
 
-A powerful and intuitive dashboard for visualizing and analyzing your Apple Health data with advanced insights and correlations.
+A powerful tool to analyze and visualize your Apple Health data with interactive dashboards and comprehensive insights.
 
 ## ✨ Features
 
-### 📊 Interactive Visualizations
-- **Heart Rate Analysis**: Track patterns, variations, and recovery metrics
-- **Activity Monitoring**: Steps, distance, and energy expenditure
-- **Workout Analysis**: Duration, intensity, and type distribution
-- **Sleep Patterns**: Duration, quality, and consistency tracking
+### 📊 Interactive Dashboards
+- **Heart & Fitness**
+  - Heart rate patterns and variability
+  - VO2 max trends
+  - Resting heart rate analysis
+  - Walking heart rate averages
 
-### 🔍 Advanced Insights
-- Heart rate patterns by time of day
-- Sleep quality and debt analysis
-- Workout effectiveness and progress tracking
-- Activity consistency and patterns
-- Cross-metric correlations and trends
+- **Activity Tracking**
+  - Step count visualization
+  - Distance (walking, running, cycling)
+  - Active energy burned
+  - Exercise and stand time
+  - Flights climbed
 
-### 🎛️ Flexible Date Filtering
-- Quick presets (7 days, 30 days, 90 days, 1 year)
-- Custom date range selection
-- Historical data up to 5 years
+- **Workout Analysis**
+  - Workout type distribution
+  - Duration and calorie tracking
+  - Distance and energy metrics
+  - Historical workout patterns
 
-### 📥 Data Export
-- Download filtered data as CSV
-- Available for all metrics and time ranges
+- **Sleep Insights**
+  - Sleep duration tracking
+  - Sleep pattern analysis
+  - Quality metrics visualization
+
+- **Body Metrics**
+  - Weight tracking
+  - BMI calculations
+  - Body measurements
+  - Trend analysis with trendlines
+
+- **Vital Signs**
+  - Blood oxygen levels
+  - Respiratory rate tracking
+
+- **Nutrition Tracking**
+  - Water intake
+  - Caffeine consumption
+  - Comprehensive dietary metrics
+  - Macro and micronutrient analysis
+
+- **Environmental Monitoring**
+  - Audio exposure levels
+  - Time in daylight tracking
+
+### 🔍 Advanced Features
+- **Smart Data Processing**
+  - Efficient preprocessing of large health datasets
+  - Timezone-aware data handling
+  - Source normalization (merges similar sources like "iPhone" variations)
+  - Batch processing for optimal performance
+
+- **Comprehensive Insights**
+  - Cross-metric correlation analysis
+  - Pattern detection
+  - Health trend identification
+  - Activity impact analysis
+
+- **Data Management**
+  - CSV export functionality for all metrics
+  - Flexible date range filtering
+  - Source-based filtering
+  - Data integrity checks
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Python 3.9 or higher
-- Apple Health data export (export.xml from Apple Health app)
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/apple_health_explorer.git
-cd apple_health_explorer
-```
-
-2. Install required packages:
-```bash
-pip install -r requirements.txt
-```
-
-3. Export your Apple Health data:
+1. **Export Your Health Data**
    - Open the Health app on your iPhone
    - Tap your profile picture
-   - Tap "Export All Health Data"
-   - Extract the zip file
-   - Place the `export.xml` file in the `apple_health_export` directory
+   - Select "Export All Health Data"
+   - Save the exported zip file
 
-### Usage
+2. **Setup**
+   ```bash
+   # Clone the repository
+   git clone [repository-url]
+   cd apple-health-explorer
 
-Run the application using the main script:
-```bash
-python main.py
-```
+   # Install dependencies
+   pip install -r requirements.txt
 
-This will:
-1. Preprocess your health data
-2. Launch the interactive dashboard
-3. Open your default browser automatically
+   # Extract your health data
+   # Place the export.xml file in the apple_health_export directory
 
-## 📁 Project Structure
+   # Preprocess the data
+   python preprocess_health_data.py
+   ```
 
-```
-apple_health_explorer/
-├── app.py              # Main Streamlit application
-├── main.py            # Entry point script
-├── data_loader.py     # Data loading utilities
-├── insights.py        # Advanced health analytics
-├── utils.py           # Common utility functions
-├── requirements.txt   # Project dependencies
-├── processed_data/    # Preprocessed CSV files
-└── apple_health_export/
-    └── export.xml     # Your health data export
-```
+3. **Run the Application**
+   ```bash
+   # Start the Streamlit app
+   streamlit run app.py
+   ```
 
-## 📊 Available Metrics
+## 📱 Data Sources
+The application supports data from various sources:
+- Apple Watch
+- iPhone
+- Third-party health apps
 
-### Heart Health
-- Heart rate over time
-- Resting heart rate
-- Heart rate variability
-- Recovery patterns
-- Time-of-day analysis
+All similar source names (e.g., different iPhone variations) are automatically normalized during preprocessing for better organization.
 
-### Activity
-- Daily steps
-- Distance covered
-- Active energy burned
-- Activity patterns
-- Consistency scores
+## 🔄 Data Processing
+- Preprocessing handles timezone conversion
+- Efficient batch processing of large datasets
+- Source name normalization for cleaner data organization
+- Automatic metadata generation and tracking
 
-### Workouts
-- Duration and frequency
-- Calorie expenditure
-- Workout type distribution
-- Intensity analysis
-- Progress tracking
+## 📈 Visualization Features
+- Interactive time-series plots
+- Distribution charts
+- Correlation analysis
+- Trend identification
+- Custom date range analysis
+- Source-based filtering
 
-### Sleep
-- Sleep duration
-- Sleep quality score
-- Sleep debt tracking
-- Consistency analysis
-- Sleep timing patterns
+## 🛠 Technical Details
+- Built with Python, Pandas, and Streamlit
+- Interactive visualizations using Plotly
+- Efficient XML parsing and data processing
+- Modular architecture for easy maintenance
+- Comprehensive error handling and data validation
 
-### Insights & Correlations
-- Steps vs Heart Rate
-- Sleep vs Recovery
-- Activity vs Sleep Quality
-- Workout Impact Analysis
-- Long-term Trends
-
-## 🛠️ Customization
-
-### Date Ranges
-- Use quick select for common ranges
-- Custom date picker for specific periods
-- Filter any metric by date range
-
-### Data Export
-Each visualization includes a download button for the filtered data in CSV format.
+## 📝 Notes
+- All dates are stored in timezone-naive format for consistent analysis
+- Data is preprocessed for optimal performance
+- Regular backups of your health data are recommended
+- The app respects data privacy and processes all data locally
 
 ## 🤝 Contributing
-
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
-
+## 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- Built with Streamlit
-- Powered by Pandas and Plotly
-- Inspired by the Apple Health app
-
-## 📬 Support
-
-If you encounter any issues or have questions, please open an issue on GitHub.

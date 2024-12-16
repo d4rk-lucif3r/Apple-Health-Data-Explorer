@@ -19,8 +19,8 @@ def format_duration(seconds):
 
 def get_date_range_mask(df, use_custom_range, start_date=None, end_date=None, selected_range=None, quick_ranges=None):
     """Generate date range mask for filtering dataframes"""
-    # Ensure we're working with timezone-naive datetime objects
-    dates = pd.to_datetime(df["date"], utc=True).dt.tz_localize(None)
+    # Dates are already timezone-naive from preprocessing
+    dates = pd.to_datetime(df["date"])
     
     if use_custom_range:
         mask = (dates.dt.date >= start_date) & (dates.dt.date <= end_date)
@@ -40,16 +40,7 @@ def get_date_range_mask(df, use_custom_range, start_date=None, end_date=None, se
     
     return mask
 
-def make_timezone_naive(df):
-    """Convert timezone-aware datetime columns to naive"""
-    if not df.empty:
-        # First ensure date column is in datetime format and handle mixed timezones
-        df["date"] = pd.to_datetime(df["date"], utc=True).dt.tz_localize(None)
 
-        # Handle endDate if it exists
-        if "endDate" in df.columns:
-            df["endDate"] = pd.to_datetime(df["endDate"], utc=True).dt.tz_localize(None)
-    return df
 
 
 def calculate_trend(values):

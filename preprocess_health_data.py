@@ -16,13 +16,36 @@ def safe_float(value, default=0.0):
     except (ValueError, TypeError):
         return default
 
+def normalize_source_name(source):
+    """Normalize source names to merge similar sources"""
+    if not source:
+        return ''
+    
+    # Convert to lowercase for comparison
+    source = source.lower()
+    
+    # Normalize iPhone variations
+    if "iphone" in source:
+        return "iPhone"
+    
+    # Normalize Apple Watch variations
+    if "watch" in source:
+        return "Apple Watch"
+    
+    # Return original source if no normalization rules match
+    return source.title()
+
 def safe_parse_date(date_str):
-    """Safely parse date string"""
+    """Safely parse date string and convert to timezone-naive"""
     try:
         if not date_str:
             return None
-        # Direct datetime parsing for known format: "YYYY-MM-DD HH:MM:SS +ZZZZ"
-        return datetime.strptime(date_str.split('+')[0].strip(), '%Y-%m-%d %H:%M:%S')
+        # Parse the date and make it timezone naive
+        # First split off timezone if present
+        date_part = date_str.split('+')[0].strip()
+        # Parse to datetime
+        dt = datetime.strptime(date_part, '%Y-%m-%d %H:%M:%S')
+        return dt
     except (ValueError, TypeError, IndexError):
         return None
 
@@ -36,9 +59,15 @@ def create_directory(path):
         raise
 
 def save_batch(records, filename):
-    """Save a batch of records to CSV"""
+    """Save a batch of records to CSV with timezone-naive dates"""
     try:
         df = pd.DataFrame(records)
+        # Ensure datetime columns are timezone naive
+        if 'date' in df.columns:
+            df['date'] = pd.to_datetime(df['date'])
+        if 'endDate' in df.columns:
+            df['endDate'] = pd.to_datetime(df['endDate'])
+        
         mode = 'a' if os.path.exists(filename) else 'w'
         header = not os.path.exists(filename)
         df.to_csv(filename, mode=mode, header=header, index=False)
@@ -147,7 +176,7 @@ def preprocess_health_data(xml_path, output_dir='processed_data'):
                                     'endDate': safe_parse_date(elem.get('endDate')),
                                     'value': safe_float(elem.get('value')),
                                     'unit': elem.get('unit', ''),
-                                    'source': elem.get('sourceName', '')
+                                    'source': normalize_source_name(elem.get('sourceName', ''))
                                 }
                                 
                                 update_date_range(record_type, date)
@@ -264,7 +293,7 @@ def preprocess_health_data(xml_path, output_dir='processed_data'):
                                 'endDate': safe_parse_date(elem.get('endDate')),
                                 'distance': safe_float(elem.get('totalDistance')),
                                 'energy': safe_float(elem.get('totalEnergyBurned')),
-                                'source': elem.get('sourceName', '')
+                                'source': normalize_source_name(elem.get('sourceName', ''))
                             }
                             
                             batches['workouts'].append(workout)

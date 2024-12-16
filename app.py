@@ -6,11 +6,10 @@ import plotly.express as px
 import streamlit as st
 
 from data_loader import load_data, load_metadata
-from insights import (analyze_activity_patterns, analyze_health_correlations,
+from insights import (analyze_activity_patterns, analyze_comprehensive_health, analyze_health_correlations,
                       analyze_heart_rate_patterns, analyze_sleep_quality,
                       analyze_workout_effectiveness)
-from utils import (format_duration, get_csv_download_link, get_date_range_mask,
-                   make_timezone_naive)
+from utils import (format_duration, get_csv_download_link, get_date_range_mask)
 
 # Set page config
 st.set_page_config(
@@ -456,43 +455,43 @@ def display_sleep_metrics(sleep_df, use_custom_range, start_date=None, end_date=
 def load_all_data():
     """Load all datasets into session state if not already loaded"""
     if 'data_loaded' not in st.session_state:
-        # Load and make timezone-naive immediately
+        # Load data (already timezone-naive from preprocessing)
         # Heart & Fitness
-        st.session_state.heart_rate_df = make_timezone_naive(load_data("heart_rate"))
-        st.session_state.resting_heart_rate_df = make_timezone_naive(load_data("resting_heart_rate"))
-        st.session_state.heart_rate_variability_df = make_timezone_naive(load_data("heart_rate_variability"))
-        st.session_state.vo2_max_df = make_timezone_naive(load_data("vo2_max"))
-        st.session_state.walking_heart_rate_df = make_timezone_naive(load_data("walking_heart_rate"))
+        st.session_state.heart_rate_df = load_data("heart_rate")
+        st.session_state.resting_heart_rate_df = load_data("resting_heart_rate")
+        st.session_state.heart_rate_variability_df = load_data("heart_rate_variability")
+        st.session_state.vo2_max_df = load_data("vo2_max")
+        st.session_state.walking_heart_rate_df = load_data("walking_heart_rate")
         
         # Activity
-        st.session_state.steps_df = make_timezone_naive(load_data("steps"))
-        st.session_state.active_energy_df = make_timezone_naive(load_data("active_energy"))
-        st.session_state.basal_energy_df = make_timezone_naive(load_data("basal_energy"))
-        st.session_state.distance_walking_running_df = make_timezone_naive(load_data("distance_walking_running"))
-        st.session_state.distance_cycling_df = make_timezone_naive(load_data("distance_cycling"))
-        st.session_state.flights_climbed_df = make_timezone_naive(load_data("flights_climbed"))
-        st.session_state.exercise_time_df = make_timezone_naive(load_data("exercise_time"))
-        st.session_state.stand_time_df = make_timezone_naive(load_data("stand_time"))
-        st.session_state.walking_metrics_df = make_timezone_naive(load_data("walking_metrics"))
+        st.session_state.steps_df = load_data("steps")
+        st.session_state.active_energy_df = load_data("active_energy")
+        st.session_state.basal_energy_df = load_data("basal_energy")
+        st.session_state.distance_walking_running_df = load_data("distance_walking_running")
+        st.session_state.distance_cycling_df = load_data("distance_cycling")
+        st.session_state.flights_climbed_df = load_data("flights_climbed")
+        st.session_state.exercise_time_df = load_data("exercise_time")
+        st.session_state.stand_time_df = load_data("stand_time")
+        st.session_state.walking_metrics_df = load_data("walking_metrics")
         
         # Others
-        st.session_state.workouts_df = make_timezone_naive(load_data("workouts"))
-        st.session_state.sleep_df = make_timezone_naive(load_data("sleep"))
+        st.session_state.workouts_df = load_data("workouts")
+        st.session_state.sleep_df = load_data("sleep")
         
         # Body Metrics
-        st.session_state.body_metrics_df = make_timezone_naive(load_data("body_metrics"))
+        st.session_state.body_metrics_df = load_data("body_metrics")
         
         # Vitals
-        st.session_state.oxygen_saturation_df = make_timezone_naive(load_data("oxygen_saturation"))
-        st.session_state.respiratory_rate_df = make_timezone_naive(load_data("respiratory_rate"))
+        st.session_state.oxygen_saturation_df = load_data("oxygen_saturation")
+        st.session_state.respiratory_rate_df = load_data("respiratory_rate")
         
         # Nutrition
-        st.session_state.water_df = make_timezone_naive(load_data("water"))
-        st.session_state.caffeine_df = make_timezone_naive(load_data("caffeine"))
-        st.session_state.dietary_metrics_df = make_timezone_naive(load_data("dietary_metrics"))
+        st.session_state.water_df = load_data("water")
+        st.session_state.caffeine_df = load_data("caffeine")
+        st.session_state.dietary_metrics_df = load_data("dietary_metrics")
         
         # Environmental
-        st.session_state.environmental_df = make_timezone_naive(load_data("environmental"))
+        st.session_state.environmental_df = load_data("environmental")
         
         st.session_state.data_loaded = True
 
@@ -581,7 +580,7 @@ def main():
         use_custom_range = True
 
     # Main content tabs
-    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
         "❤️ Heart & Fitness",
         "🏃‍♂️ Activity",
         "🏋️‍♂️ Workouts",
@@ -589,7 +588,8 @@ def main():
         "⚖️ Body Metrics",
         "🫁 Vitals",
         "🥗 Nutrition",
-        "🌍 Environmental"
+        "🌍 Environmental",
+        "🔍 Insights"
     ])
 
     with tab1:
@@ -715,29 +715,36 @@ def main():
         else:
             st.warning("No environmental data available.")
 
-    with tab5:
-        st.header("Health Insights & Correlations")
-        st.info("Discover relationships between different health metrics and analyze trends.")
+    with tab9:
+        st.header("Comprehensive Health Insights")
+        st.info("Discover deep insights and patterns across all your health metrics.")
         
-        # Create deep copies and make timezone-naive
-        heart_df = make_timezone_naive(st.session_state.heart_rate_df.copy(deep=True))
-        steps_df = make_timezone_naive(st.session_state.steps_df.copy(deep=True))
-        sleep_df = make_timezone_naive(st.session_state.sleep_df.copy(deep=True))
-        workouts_df = make_timezone_naive(st.session_state.workouts_df.copy(deep=True))
+        # Create deep copies (data is already timezone-naive from preprocessing)
+        heart_df = st.session_state.heart_rate_df.copy(deep=True)
+        steps_df = st.session_state.steps_df.copy(deep=True)
+        sleep_df = st.session_state.sleep_df.copy(deep=True)
+        workouts_df = st.session_state.workouts_df.copy(deep=True)
 
-        # Display detailed insights
-        st.subheader("❤️ Heart Rate Insights")
-        analyze_heart_rate_patterns(heart_df)
+        # Comprehensive health analysis
+        analyze_comprehensive_health(heart_df, steps_df, sleep_df, workouts_df)
         
-        st.subheader("😴 Sleep Insights")
-        analyze_sleep_quality(sleep_df)
+        # Individual metric insights
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("❤️ Heart Rate Insights")
+            analyze_heart_rate_patterns(heart_df)
+            
+            st.subheader("😴 Sleep Insights")
+            analyze_sleep_quality(sleep_df)
         
-        st.subheader("💪 Workout Insights")
-        analyze_workout_effectiveness(workouts_df)
+        with col2:
+            st.subheader("💪 Workout Insights")
+            analyze_workout_effectiveness(workouts_df)
+            
+            st.subheader("🏃‍♂️ Activity Insights")
+            analyze_activity_patterns(steps_df)
         
-        st.subheader("🏃‍♂️ Activity Insights")
-        analyze_activity_patterns(steps_df)
-        
+        # Correlations at the bottom
         st.subheader("🔄 Health Correlations")
         analyze_health_correlations(heart_df, steps_df, sleep_df)
 

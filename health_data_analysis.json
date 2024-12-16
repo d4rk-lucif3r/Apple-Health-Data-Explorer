@@ -1,0 +1,353 @@
+{
+  "record_counts": {
+    "HKQuantityTypeIdentifierDietaryWater": 309,
+    "HKQuantityTypeIdentifierBodyMassIndex": 52,
+    "HKQuantityTypeIdentifierHeight": 2,
+    "HKQuantityTypeIdentifierBodyMass": 65,
+    "HKQuantityTypeIdentifierHeartRate": 287256,
+    "HKQuantityTypeIdentifierOxygenSaturation": 8083,
+    "HKQuantityTypeIdentifierRespiratoryRate": 24088,
+    "HKQuantityTypeIdentifierBodyFatPercentage": 51,
+    "HKQuantityTypeIdentifierLeanBodyMass": 51,
+    "HKQuantityTypeIdentifierStepCount": 68215,
+    "HKQuantityTypeIdentifierDistanceWalkingRunning": 96642,
+    "HKQuantityTypeIdentifierBasalEnergyBurned": 221836,
+    "HKQuantityTypeIdentifierActiveEnergyBurned": 366225,
+    "HKQuantityTypeIdentifierFlightsClimbed": 3013,
+    "HKQuantityTypeIdentifierDietaryFatTotal": 1,
+    "HKQuantityTypeIdentifierDietaryFatPolyunsaturated": 1,
+    "HKQuantityTypeIdentifierDietaryFatMonounsaturated": 1,
+    "HKQuantityTypeIdentifierDietaryFatSaturated": 1,
+    "HKQuantityTypeIdentifierDietaryCholesterol": 1,
+    "HKQuantityTypeIdentifierDietarySodium": 1,
+    "HKQuantityTypeIdentifierDietaryCarbohydrates": 1,
+    "HKQuantityTypeIdentifierDietaryFiber": 1,
+    "HKQuantityTypeIdentifierDietarySugar": 1,
+    "HKQuantityTypeIdentifierDietaryEnergyConsumed": 1,
+    "HKQuantityTypeIdentifierDietaryProtein": 1,
+    "HKQuantityTypeIdentifierDietaryVitaminC": 1,
+    "HKQuantityTypeIdentifierDietaryCalcium": 1,
+    "HKQuantityTypeIdentifierDietaryIron": 1,
+    "HKQuantityTypeIdentifierDietaryPotassium": 1,
+    "HKQuantityTypeIdentifierNumberOfTimesFallen": 7,
+    "HKQuantityTypeIdentifierAppleExerciseTime": 14050,
+    "HKQuantityTypeIdentifierDietaryCaffeine": 21,
+    "HKQuantityTypeIdentifierDistanceCycling": 4776,
+    "HKQuantityTypeIdentifierWaistCircumference": 1,
+    "HKQuantityTypeIdentifierRestingHeartRate": 750,
+    "HKQuantityTypeIdentifierVO2Max": 20,
+    "HKQuantityTypeIdentifierWalkingHeartRateAverage": 733,
+    "HKQuantityTypeIdentifierEnvironmentalAudioExposure": 6492,
+    "HKQuantityTypeIdentifierHeadphoneAudioExposure": 1407,
+    "HKQuantityTypeIdentifierWalkingDoubleSupportPercentage": 5452,
+    "HKQuantityTypeIdentifierSixMinuteWalkTestDistance": 80,
+    "HKQuantityTypeIdentifierAppleStandTime": 31517,
+    "HKQuantityTypeIdentifierWalkingSpeed": 6205,
+    "HKQuantityTypeIdentifierWalkingStepLength": 6205,
+    "HKQuantityTypeIdentifierWalkingAsymmetryPercentage": 2159,
+    "HKQuantityTypeIdentifierStairAscentSpeed": 1824,
+    "HKQuantityTypeIdentifierStairDescentSpeed": 842,
+    "HKDataTypeSleepDurationGoal": 2,
+    "HKQuantityTypeIdentifierAppleWalkingSteadiness": 119,
+    "HKQuantityTypeIdentifierHeartRateRecoveryOneMinute": 15,
+    "HKQuantityTypeIdentifierTimeInDaylight": 1952,
+    "HKQuantityTypeIdentifierPhysicalEffort": 263351,
+    "HKCategoryTypeIdentifierSleepAnalysis": 25612,
+    "HKCategoryTypeIdentifierAppleStandHour": 16626,
+    "HKCategoryTypeIdentifierMindfulSession": 11,
+    "HKCategoryTypeIdentifierHighHeartRateEvent": 42,
+    "HKCategoryTypeIdentifierAudioExposureEvent": 184,
+    "HKCategoryTypeIdentifierToothbrushingEvent": 1,
+    "HKCategoryTypeIdentifierHeadphoneAudioExposureEvent": 3,
+    "HKCategoryTypeIdentifierHandwashingEvent": 3493,
+    "Workout": 346,
+    "ActivitySummary": 891,
+    "HKQuantityTypeIdentifierHeartRateVariabilitySDNN": 7584
+  },
+  "attributes": {
+    "Record": [
+      "unit",
+      "device",
+      "endDate",
+      "type",
+      "sourceName",
+      "value",
+      "creationDate",
+      "sourceVersion",
+      "startDate"
+    ],
+    "Workout": [
+      "durationUnit",
+      "workoutActivityType",
+      "device",
+      "duration",
+      "endDate",
+      "sourceName",
+      "creationDate",
+      "sourceVersion",
+      "startDate"
+    ],
+    "ActivitySummary": [
+      "appleExerciseTime",
+      "appleMoveTime",
+      "activeEnergyBurned",
+      "dateComponents",
+      "activeEnergyBurnedGoal",
+      "appleMoveTimeGoal",
+      "appleExerciseTimeGoal",
+      "appleStandHours",
+      "appleStandHoursGoal",
+      "activeEnergyBurnedUnit"
+    ]
+  },
+  "date_ranges": {
+    "HKQuantityTypeIdentifierDietaryWater": {
+      "min": "2023-12-13",
+      "max": "2024-11-19"
+    },
+    "HKQuantityTypeIdentifierBodyMassIndex": {
+      "min": "2023-11-09",
+      "max": "2024-11-22"
+    },
+    "HKQuantityTypeIdentifierHeight": {
+      "min": "2023-11-09",
+      "max": "2024-05-05"
+    },
+    "HKQuantityTypeIdentifierBodyMass": {
+      "min": "2022-05-09",
+      "max": "2024-11-22"
+    },
+    "HKQuantityTypeIdentifierHeartRate": {
+      "min": "2022-12-04",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierOxygenSaturation": {
+      "min": "2022-12-04",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierRespiratoryRate": {
+      "min": "2022-12-04",
+      "max": "2024-12-15"
+    },
+    "HKQuantityTypeIdentifierBodyFatPercentage": {
+      "min": "2023-11-09",
+      "max": "2024-11-22"
+    },
+    "HKQuantityTypeIdentifierLeanBodyMass": {
+      "min": "2023-11-09",
+      "max": "2024-11-22"
+    },
+    "HKQuantityTypeIdentifierStepCount": {
+      "min": "2022-05-08",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierDistanceWalkingRunning": {
+      "min": "2022-05-08",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierBasalEnergyBurned": {
+      "min": "2022-07-11",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierActiveEnergyBurned": {
+      "min": "2022-07-11",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierFlightsClimbed": {
+      "min": "2022-05-08",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierDietaryFatTotal": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryFatPolyunsaturated": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryFatMonounsaturated": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryFatSaturated": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryCholesterol": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietarySodium": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryCarbohydrates": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryFiber": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietarySugar": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryEnergyConsumed": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryProtein": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryVitaminC": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryCalcium": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryIron": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierDietaryPotassium": {
+      "min": "2024-04-18",
+      "max": "2024-04-18"
+    },
+    "HKQuantityTypeIdentifierNumberOfTimesFallen": {
+      "min": "2023-04-21",
+      "max": "2024-10-10"
+    },
+    "HKQuantityTypeIdentifierAppleExerciseTime": {
+      "min": "2022-12-04",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierDietaryCaffeine": {
+      "min": "2023-12-14",
+      "max": "2024-11-18"
+    },
+    "HKQuantityTypeIdentifierDistanceCycling": {
+      "min": "2022-12-04",
+      "max": "2024-11-05"
+    },
+    "HKQuantityTypeIdentifierWaistCircumference": {
+      "min": "2024-10-31",
+      "max": "2024-10-31"
+    },
+    "HKQuantityTypeIdentifierRestingHeartRate": {
+      "min": "2022-12-04",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierVO2Max": {
+      "min": "2022-12-22",
+      "max": "2024-10-21"
+    },
+    "HKQuantityTypeIdentifierWalkingHeartRateAverage": {
+      "min": "2022-12-04",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierEnvironmentalAudioExposure": {
+      "min": "2022-12-03",
+      "max": "2023-05-25"
+    },
+    "HKQuantityTypeIdentifierHeadphoneAudioExposure": {
+      "min": "2022-05-08",
+      "max": "2024-12-12"
+    },
+    "HKQuantityTypeIdentifierWalkingDoubleSupportPercentage": {
+      "min": "2022-05-08",
+      "max": "2024-12-15"
+    },
+    "HKQuantityTypeIdentifierSixMinuteWalkTestDistance": {
+      "min": "2022-12-15",
+      "max": "2024-12-09"
+    },
+    "HKQuantityTypeIdentifierAppleStandTime": {
+      "min": "2022-12-04",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierWalkingSpeed": {
+      "min": "2022-05-08",
+      "max": "2024-12-15"
+    },
+    "HKQuantityTypeIdentifierWalkingStepLength": {
+      "min": "2022-05-08",
+      "max": "2024-12-15"
+    },
+    "HKQuantityTypeIdentifierWalkingAsymmetryPercentage": {
+      "min": "2022-05-20",
+      "max": "2024-12-15"
+    },
+    "HKQuantityTypeIdentifierStairAscentSpeed": {
+      "min": "2022-12-04",
+      "max": "2024-12-16"
+    },
+    "HKQuantityTypeIdentifierStairDescentSpeed": {
+      "min": "2022-12-04",
+      "max": "2024-12-14"
+    },
+    "HKDataTypeSleepDurationGoal": {
+      "min": "2022-12-04",
+      "max": "2024-10-28"
+    },
+    "HKQuantityTypeIdentifierAppleWalkingSteadiness": {
+      "min": "2022-05-14",
+      "max": "2024-12-02"
+    },
+    "HKQuantityTypeIdentifierHeartRateRecoveryOneMinute": {
+      "min": "2022-12-22",
+      "max": "2024-12-09"
+    },
+    "HKQuantityTypeIdentifierTimeInDaylight": {
+      "min": "2023-06-11",
+      "max": "2024-12-12"
+    },
+    "HKQuantityTypeIdentifierPhysicalEffort": {
+      "min": "2023-06-07",
+      "max": "2024-12-16"
+    },
+    "HKCategoryTypeIdentifierSleepAnalysis": {
+      "min": "2022-12-05",
+      "max": "2024-12-16"
+    },
+    "HKCategoryTypeIdentifierAppleStandHour": {
+      "min": "2022-12-03",
+      "max": "2024-12-16"
+    },
+    "HKCategoryTypeIdentifierMindfulSession": {
+      "min": "2022-12-04",
+      "max": "2024-08-21"
+    },
+    "HKCategoryTypeIdentifierHighHeartRateEvent": {
+      "min": "2022-12-10",
+      "max": "2024-02-11"
+    },
+    "HKCategoryTypeIdentifierAudioExposureEvent": {
+      "min": "2022-12-04",
+      "max": "2023-04-21"
+    },
+    "HKCategoryTypeIdentifierToothbrushingEvent": {
+      "min": "2024-04-13",
+      "max": "2024-04-13"
+    },
+    "HKCategoryTypeIdentifierHeadphoneAudioExposureEvent": {
+      "min": "2024-11-01",
+      "max": "2024-11-22"
+    },
+    "HKCategoryTypeIdentifierHandwashingEvent": {
+      "min": "2022-12-05",
+      "max": "2024-12-16"
+    },
+    "Workout": {
+      "min": "2022-12-05",
+      "max": "2024-12-12"
+    },
+    "HKQuantityTypeIdentifierHeartRateVariabilitySDNN": {
+      "min": "2022-12-04",
+      "max": "2024-12-16"
+    }
+  }
+}

@@ -19,43 +19,59 @@ def format_duration(seconds):
 
 def get_date_range_mask(df, use_custom_range, start_date=None, end_date=None, selected_range=None, quick_ranges=None):
     """Generate date range mask for filtering dataframes"""
+    # Ensure we're working with timezone-naive datetime objects
+    dates = pd.to_datetime(df["date"], utc=True).dt.tz_localize(None)
+    
     if use_custom_range:
-        return (df["date"].dt.date >= start_date) & (df["date"].dt.date <= end_date)
+        mask = (dates.dt.date >= start_date) & (dates.dt.date <= end_date)
     else:
-        max_date = df["date"].max()
+        max_date = dates.max()
         if quick_ranges[selected_range]:
             min_date = max_date - quick_ranges[selected_range]
         else:
-            min_date = df["date"].min()
-        return (df["date"].dt.date >= min_date.date()) & (df["date"].dt.date <= max_date.date())
+            min_date = dates.min()
+        mask = (dates.dt.date >= min_date.date()) & (dates.dt.date <= max_date.date())
+    
+    # Add debug output
+    print(f"Date range: {dates.min()} to {dates.max()}")
+    print(f"Filter range: {min_date if not use_custom_range else start_date} to {max_date if not use_custom_range else end_date}")
+    print(f"Number of records: {len(df)}")
+    print(f"Number of records after filter: {mask.sum()}")
+    
+    return mask
 
 def make_timezone_naive(df):
     """Convert timezone-aware datetime columns to naive"""
-    if not df.empty and df["date"].dt.tz is not None:
-        df["date"] = df["date"].dt.tz_localize(None)
-    if "endDate" in df.columns and not df.empty and df["endDate"].dt.tz is not None:
-        df["endDate"] = df["endDate"].dt.tz_localize(None)
+    if not df.empty:
+        # First ensure date column is in datetime format and handle mixed timezones
+        df["date"] = pd.to_datetime(df["date"], utc=True).dt.tz_localize(None)
+
+        # Handle endDate if it exists
+        if "endDate" in df.columns:
+            df["endDate"] = pd.to_datetime(df["endDate"], utc=True).dt.tz_localize(None)
     return df
+
 
 def calculate_trend(values):
     """Calculate trend direction and percentage change"""
     if len(values) < 2:
         return "No trend data available", 0
-    
-    first_half = values[:len(values)//2].mean()
-    second_half = values[len(values)//2:].mean()
-    
+
+    first_half = values[: len(values) // 2].mean()
+    second_half = values[len(values) // 2 :].mean()
+
     if first_half == 0:
         return "Stable", 0
-        
+
     change = ((second_half - first_half) / first_half) * 100
-    
+
     if change > 5:
         return "Increasing", change
     elif change < -5:
         return "Decreasing", change
     else:
         return "Stable", change
+
 
 def get_day_part(hour):
     """Get part of day based on hour"""

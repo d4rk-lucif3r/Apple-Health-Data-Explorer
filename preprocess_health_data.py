@@ -69,12 +69,41 @@ def preprocess_health_data(xml_path, output_dir='processed_data'):
         
         # Initialize data containers for batches
         batches = {
+            # Body Metrics
+            'body_metrics': [],  # BMI, height, weight, body fat, lean mass, waist
+            
+            # Heart & Fitness
             'heart_rate': [],
             'resting_heart_rate': [],
             'heart_rate_variability': [],
+            'vo2_max': [],
+            'heart_rate_recovery': [],
+            'walking_heart_rate': [],
+            
+            # Activity
             'steps': [],
-            'distance': [],
+            'distance_walking_running': [],
+            'distance_cycling': [],
+            'flights_climbed': [],
+            'exercise_time': [],
+            'stand_time': [],
+            'walking_metrics': [],  # speed, step length, steadiness, etc.
             'active_energy': [],
+            'basal_energy': [],
+            
+            # Vitals
+            'oxygen_saturation': [],
+            'respiratory_rate': [],
+            
+            # Nutrition
+            'water': [],
+            'caffeine': [],
+            'dietary_metrics': [],  # all nutrition metrics
+            
+            # Environmental
+            'environmental': [],  # audio exposure, time in daylight
+            
+            # Others
             'sleep': [],
             'workouts': []
         }
@@ -124,7 +153,19 @@ def preprocess_health_data(xml_path, output_dir='processed_data'):
                                 update_date_range(record_type, date)
                                 
                                 # Sort records into appropriate containers
-                                if record_type == 'HKQuantityTypeIdentifierHeartRate':
+                                # Body Metrics
+                                if record_type in ['HKQuantityTypeIdentifierBodyMassIndex', 
+                                                'HKQuantityTypeIdentifierHeight',
+                                                'HKQuantityTypeIdentifierBodyMass',
+                                                'HKQuantityTypeIdentifierBodyFatPercentage',
+                                                'HKQuantityTypeIdentifierLeanBodyMass',
+                                                'HKQuantityTypeIdentifierWaistCircumference']:
+                                    base_record['metric_type'] = record_type
+                                    batches['body_metrics'].append(base_record)
+                                    save_batch_if_full('body_metrics')
+                                
+                                # Heart & Fitness
+                                elif record_type == 'HKQuantityTypeIdentifierHeartRate':
                                     batches['heart_rate'].append(base_record)
                                     save_batch_if_full('heart_rate')
                                 elif record_type == 'HKQuantityTypeIdentifierRestingHeartRate':
@@ -133,15 +174,79 @@ def preprocess_health_data(xml_path, output_dir='processed_data'):
                                 elif record_type == 'HKQuantityTypeIdentifierHeartRateVariabilitySDNN':
                                     batches['heart_rate_variability'].append(base_record)
                                     save_batch_if_full('heart_rate_variability')
+                                elif record_type == 'HKQuantityTypeIdentifierVO2Max':
+                                    batches['vo2_max'].append(base_record)
+                                    save_batch_if_full('vo2_max')
+                                elif record_type == 'HKQuantityTypeIdentifierHeartRateRecoveryOneMinute':
+                                    batches['heart_rate_recovery'].append(base_record)
+                                    save_batch_if_full('heart_rate_recovery')
+                                elif record_type == 'HKQuantityTypeIdentifierWalkingHeartRateAverage':
+                                    batches['walking_heart_rate'].append(base_record)
+                                    save_batch_if_full('walking_heart_rate')
+                                
+                                # Activity
                                 elif record_type == 'HKQuantityTypeIdentifierStepCount':
                                     batches['steps'].append(base_record)
                                     save_batch_if_full('steps')
                                 elif record_type == 'HKQuantityTypeIdentifierDistanceWalkingRunning':
-                                    batches['distance'].append(base_record)
-                                    save_batch_if_full('distance')
+                                    batches['distance_walking_running'].append(base_record)
+                                    save_batch_if_full('distance_walking_running')
+                                elif record_type == 'HKQuantityTypeIdentifierDistanceCycling':
+                                    batches['distance_cycling'].append(base_record)
+                                    save_batch_if_full('distance_cycling')
+                                elif record_type == 'HKQuantityTypeIdentifierFlightsClimbed':
+                                    batches['flights_climbed'].append(base_record)
+                                    save_batch_if_full('flights_climbed')
+                                elif record_type == 'HKQuantityTypeIdentifierAppleExerciseTime':
+                                    batches['exercise_time'].append(base_record)
+                                    save_batch_if_full('exercise_time')
+                                elif record_type == 'HKQuantityTypeIdentifierAppleStandTime':
+                                    batches['stand_time'].append(base_record)
+                                    save_batch_if_full('stand_time')
+                                elif record_type in ['HKQuantityTypeIdentifierWalkingSpeed',
+                                                 'HKQuantityTypeIdentifierWalkingStepLength',
+                                                 'HKQuantityTypeIdentifierWalkingAsymmetryPercentage',
+                                                 'HKQuantityTypeIdentifierWalkingDoubleSupportPercentage',
+                                                 'HKQuantityTypeIdentifierAppleWalkingSteadiness']:
+                                    base_record['metric_type'] = record_type
+                                    batches['walking_metrics'].append(base_record)
+                                    save_batch_if_full('walking_metrics')
                                 elif record_type == 'HKQuantityTypeIdentifierActiveEnergyBurned':
                                     batches['active_energy'].append(base_record)
                                     save_batch_if_full('active_energy')
+                                elif record_type == 'HKQuantityTypeIdentifierBasalEnergyBurned':
+                                    batches['basal_energy'].append(base_record)
+                                    save_batch_if_full('basal_energy')
+                                
+                                # Vitals
+                                elif record_type == 'HKQuantityTypeIdentifierOxygenSaturation':
+                                    batches['oxygen_saturation'].append(base_record)
+                                    save_batch_if_full('oxygen_saturation')
+                                elif record_type == 'HKQuantityTypeIdentifierRespiratoryRate':
+                                    batches['respiratory_rate'].append(base_record)
+                                    save_batch_if_full('respiratory_rate')
+                                
+                                # Nutrition
+                                elif record_type == 'HKQuantityTypeIdentifierDietaryWater':
+                                    batches['water'].append(base_record)
+                                    save_batch_if_full('water')
+                                elif record_type == 'HKQuantityTypeIdentifierDietaryCaffeine':
+                                    batches['caffeine'].append(base_record)
+                                    save_batch_if_full('caffeine')
+                                elif record_type.startswith('HKQuantityTypeIdentifierDietary'):
+                                    base_record['metric_type'] = record_type
+                                    batches['dietary_metrics'].append(base_record)
+                                    save_batch_if_full('dietary_metrics')
+                                
+                                # Environmental
+                                elif record_type in ['HKQuantityTypeIdentifierEnvironmentalAudioExposure',
+                                                 'HKQuantityTypeIdentifierHeadphoneAudioExposure',
+                                                 'HKQuantityTypeIdentifierTimeInDaylight']:
+                                    base_record['metric_type'] = record_type
+                                    batches['environmental'].append(base_record)
+                                    save_batch_if_full('environmental')
+                                
+                                # Sleep
                                 elif record_type == 'HKCategoryTypeIdentifierSleepAnalysis':
                                     batches['sleep'].append(base_record)
                                     save_batch_if_full('sleep')
@@ -172,12 +277,29 @@ def preprocess_health_data(xml_path, output_dir='processed_data'):
                 finally:
                     elem.clear()
         
-        # Save any remaining batches
-        print("\n2. Saving remaining records...")
+        # Save and post-process remaining batches
+        print("\n2. Saving and post-processing records...")
         with tqdm(total=len(batches), desc="Saving data files", unit="files") as pbar:
             for data_type, records in batches.items():
                 if records:
-                    save_batch(records, os.path.join(output_dir, f"{data_type}.csv"))
+                    # if data_type == 'steps':
+                    #     # Post-process steps data
+                    #     df = pd.DataFrame(records)
+                        
+                    #     # Convert date to datetime if not already
+                    #     df['date'] = pd.to_datetime(df['date'])
+                        
+                    #     # Group by date and source, sum the steps
+                    #     df = df.groupby(['date', 'source'])['value'].sum().reset_index()
+                        
+                    #     # For each timestamp, take the maximum value among sources
+                    #     # This prevents double counting while ensuring we don't miss steps
+                    #     df = df.groupby('date')['value'].max().reset_index()
+                        
+                    #     # Save processed steps data
+                    #     df.to_csv(os.path.join(output_dir, f"{data_type}.csv"), index=False)
+                    # else:
+                        save_batch(records, os.path.join(output_dir, f"{data_type}.csv"))
                 pbar.update(1)
         
         # Save metadata

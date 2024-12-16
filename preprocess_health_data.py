@@ -35,6 +35,37 @@ def normalize_source_name(source):
     # Return original source if no normalization rules match
     return source.title()
 
+def normalize_workout_type(workout_type):
+    """Convert HKWorkoutActivityType to readable format"""
+    if not workout_type:
+        return 'Other'
+    
+    # Remove prefix
+    if workout_type.startswith('HKWorkoutActivityType'):
+        workout_type = workout_type[19:]
+    
+    # Special cases
+    mapping = {
+        'TraditionalStrengthTraining': 'Strength Training',
+        'PreparationAndRecovery': 'Recovery',
+        'MixedCardio': 'Mixed Cardio',
+        'HighIntensityIntervalTraining': 'HIIT',
+        'CrossTraining': 'Cross Training',
+        'HandCycling': 'Hand Cycling',
+        'CoreTraining': 'Core Training',
+        'FlexibilityTraining': 'Flexibility',
+        'WalkingRunning': 'Walk/Run',
+    }
+    
+    if workout_type in mapping:
+        return mapping[workout_type]
+    
+    # Convert camel case to spaces
+    import re
+    workout_type = re.sub('([a-z])([A-Z])', r'\1 \2', workout_type)
+    
+    return workout_type
+
 def safe_parse_date(date_str):
     """Safely parse date string and convert to timezone-naive"""
     try:
@@ -287,7 +318,7 @@ def preprocess_health_data(xml_path, output_dir='processed_data'):
                         date = safe_parse_date(elem.get('startDate'))
                         if date:
                             workout = {
-                                'type': elem.get('workoutActivityType'),
+                                'type': normalize_workout_type(elem.get('workoutActivityType')),
                                 'duration': safe_float(elem.get('duration')),
                                 'date': date,
                                 'endDate': safe_parse_date(elem.get('endDate')),

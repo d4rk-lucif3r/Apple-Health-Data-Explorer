@@ -2,6 +2,9 @@
 
 A powerful tool to analyze and visualize your Apple Health data with interactive dashboards and comprehensive insights.
 
+![image](https://github.com/user-attachments/assets/0c98b7d5-9ccb-4066-8d6d-9005e6548a08)
+
+
 ## ✨ Features
 
 ### 📊 Interactive Dashboards

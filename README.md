@@ -82,7 +82,7 @@ A powerful tool to analyze and visualize your Apple Health data with interactive
 2. **Setup**
    ```bash
    # Clone the repository
-   git clone [repository-url]
+   git clone https://github.com/d4rk-lucif3r/Apple-Health-Data-Explorer.git
    cd apple-health-explorer
 
    # Install dependencies
@@ -99,6 +99,11 @@ A powerful tool to analyze and visualize your Apple Health data with interactive
    ```bash
    # Start the Streamlit app
    streamlit run app.py
+   ```
+
+4. ** Or Just do
+   ```bash
+   python main.py
    ```
 
 ## 📱 Data Sources

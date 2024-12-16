@@ -176,6 +176,15 @@ def display_sleep_metrics(sleep_df, use_custom_range, start_date=None, end_date=
         else:
             st.warning("No sleep data available for the selected period.")
 
+def load_all_data():
+    """Load all datasets into session state if not already loaded"""
+    if 'data_loaded' not in st.session_state:
+        st.session_state.heart_rate_df = load_data("heart_rate")
+        st.session_state.steps_df = load_data("steps")
+        st.session_state.sleep_df = load_data("sleep")
+        st.session_state.workouts_df = load_data("workouts")
+        st.session_state.data_loaded = True
+
 def main():
     st.title("🍎 Apple Health Data Explorer")
 
@@ -195,6 +204,10 @@ def main():
     This app allows you to explore your Apple Health data with interactive visualizations. 
     Data was last processed on: {last_processed.strftime('%Y-%m-%d %H:%M:%S')}
     """)
+
+    # Load all data at startup
+    with st.spinner("Loading health data..."):
+        load_all_data()
 
     # Sidebar date filters
     st.sidebar.header("📅 Filters")
@@ -246,61 +259,48 @@ def main():
     with tab1:
         st.header("Heart Health Metrics")
         st.info("Analyze your heart rate patterns, including resting heart rate and heart rate variability.")
-        if st.button("📊 Load Heart Data", key="heart"):
-            with st.spinner("Loading heart health data..."):
-                heart_rate_df = load_data("heart_rate")
-                display_heart_metrics(heart_rate_df, use_custom_range, start_date, end_date, selected_range, quick_ranges)
+        display_heart_metrics(st.session_state.heart_rate_df, use_custom_range, start_date, end_date, selected_range, quick_ranges)
 
     with tab2:
         st.header("Activity Metrics")
         st.info("Track your daily steps, distance, and active energy burned.")
-        if st.button("📊 Load Activity Data", key="activity"):
-            with st.spinner("Loading activity data..."):
-                steps_df = load_data("steps")
-                display_activity_metrics(steps_df, use_custom_range, start_date, end_date, selected_range, quick_ranges)
+        display_activity_metrics(st.session_state.steps_df, use_custom_range, start_date, end_date, selected_range, quick_ranges)
 
     with tab3:
         st.header("Workout Analysis")
         st.info("Review your workout history, including duration, distance, and calories burned.")
-        if st.button("📊 Load Workout Data", key="workout"):
-            with st.spinner("Loading workout data..."):
-                workout_df = load_data("workouts")
-                display_workout_metrics(workout_df, use_custom_range, start_date, end_date, selected_range, quick_ranges)
+        display_workout_metrics(st.session_state.workouts_df, use_custom_range, start_date, end_date, selected_range, quick_ranges)
 
     with tab4:
         st.header("Sleep Analysis")
         st.info("Analyze your sleep patterns and duration.")
-        if st.button("📊 Load Sleep Data", key="sleep"):
-            with st.spinner("Loading sleep data..."):
-                sleep_df = load_data("sleep")
-                display_sleep_metrics(sleep_df, use_custom_range, start_date, end_date, selected_range, quick_ranges)
+        display_sleep_metrics(st.session_state.sleep_df, use_custom_range, start_date, end_date, selected_range, quick_ranges)
 
     with tab5:
         st.header("Health Insights & Correlations")
         st.info("Discover relationships between different health metrics and analyze trends.")
-        if st.button("📊 Generate Insights", key="insights"):
-            with st.spinner("Analyzing your health data..."):
-                # Load and prepare data
-                heart_df = make_timezone_naive(load_data("heart_rate"))
-                steps_df = make_timezone_naive(load_data("steps"))
-                sleep_df = make_timezone_naive(load_data("sleep"))
-                workouts_df = make_timezone_naive(load_data("workouts"))
+        
+        # Prepare timezone-naive copies for analysis
+        heart_df = make_timezone_naive(st.session_state.heart_rate_df.copy())
+        steps_df = make_timezone_naive(st.session_state.steps_df.copy())
+        sleep_df = make_timezone_naive(st.session_state.sleep_df.copy())
+        workouts_df = make_timezone_naive(st.session_state.workouts_df.copy())
 
-                # Display detailed insights
-                st.subheader("❤️ Heart Rate Insights")
-                analyze_heart_rate_patterns(heart_df)
-                
-                st.subheader("😴 Sleep Insights")
-                analyze_sleep_quality(sleep_df)
-                
-                st.subheader("💪 Workout Insights")
-                analyze_workout_effectiveness(workouts_df)
-                
-                st.subheader("🏃‍♂️ Activity Insights")
-                analyze_activity_patterns(steps_df)
-                
-                st.subheader("🔄 Health Correlations")
-                analyze_health_correlations(heart_df, steps_df, sleep_df)
+        # Display detailed insights
+        st.subheader("❤️ Heart Rate Insights")
+        analyze_heart_rate_patterns(heart_df)
+        
+        st.subheader("😴 Sleep Insights")
+        analyze_sleep_quality(sleep_df)
+        
+        st.subheader("💪 Workout Insights")
+        analyze_workout_effectiveness(workouts_df)
+        
+        st.subheader("🏃‍♂️ Activity Insights")
+        analyze_activity_patterns(steps_df)
+        
+        st.subheader("🔄 Health Correlations")
+        analyze_health_correlations(heart_df, steps_df, sleep_df)
 
     st.sidebar.markdown("""
     ### About
